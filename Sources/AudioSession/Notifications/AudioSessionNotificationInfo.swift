@@ -10,13 +10,15 @@ import AVFoundation
 
 // MARK: - Notification info key
 
-enum AudioSessionNotificationInfoKey {
-    case interruptionType
-    case interruptionOptions
-    case routeChangeReason
+extension AVAudioSession.Event {
+    enum InfoKey {
+        case interruptionType
+        case interruptionOptions
+        case routeChangeReason
+    }
 }
 
-extension AudioSessionNotificationInfoKey {
+extension AVAudioSession.Event.InfoKey {
     var string: String {
         switch self {
         case .interruptionType:
@@ -32,21 +34,22 @@ extension AudioSessionNotificationInfoKey {
 
 // MARK: - Notification info
 
-struct AudioSessionNotificationInfo {
-    private let info: [AnyHashable: Any]
-    
-    init?(notification: Notification) {
-        guard let info = notification.userInfo else {
-            return nil
+extension AVAudioSession.Event{
+    struct Info {
+        private let info: [AnyHashable: Any]
+        
+        init?(notification: Notification) {
+            guard let info = notification.userInfo else {
+                return nil
+            }
+            self.info = info
         }
-        self.info = info
+        // TODO: Throw error instead of failing initializer.
     }
-    // TODO: Throw error instead of failing initializer.
 }
 
-extension AudioSessionNotificationInfo {
-    
-    private func rawValue(for key: AudioSessionNotificationInfoKey) -> UInt? {
+extension AVAudioSession.Event.Info {
+    private func rawValue(for key: AVAudioSession.Event.InfoKey) -> UInt? {
         guard let any = info[key.string] else { return nil }
         guard let value = any as? UInt else { fatalError() }
         return value
@@ -67,7 +70,4 @@ extension AudioSessionNotificationInfo {
         guard let value = rawValue(for: .routeChangeReason) else { return nil }
         return AVAudioSession.RouteChangeReason(rawValue: value)
     }
-    
 }
-
-

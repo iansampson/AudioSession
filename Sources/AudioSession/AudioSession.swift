@@ -46,8 +46,8 @@ final class AudioSession {
         // TODO: Necessary? Playing audio should activate the session on its own.
         
         // Subscribe to notifications.
-        let subscriber = notificationCenter
-            .audioNotificationPublisher
+        let subscriber = audioSession
+            .publisher(notificationCenter: notificationCenter)
             .sink {
                 switch $0 {
                 case .interruption(let type, let options):

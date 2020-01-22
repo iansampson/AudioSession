@@ -109,7 +109,7 @@ private extension AudioSessionTests {
                 notificationCenter.post(notification)
                 
                 // Wait for expectation to be fulfilled.
-                wait(for: [expectation], timeout: 5)
+                wait(for: [expectation], timeout: 2)
                 
             // If no event is expected...
             } else {
