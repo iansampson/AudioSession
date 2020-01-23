@@ -21,14 +21,12 @@ extension AVAudioSession {
         publisher(for: .interruption, notificationCenter: notificationCenter)
         .merge(with:
             publisher(for: .routeChange, notificationCenter: notificationCenter),
-            publisher(for: .mediaReset, notificationCenter: notificationCenter)
+            publisher(for: .mediaServicesReset, notificationCenter: notificationCenter)
         )
         .eraseToAnyPublisher()
     }
     
     private func publisher(for event: Event.Category, notificationCenter: NotificationCenter) -> AnyPublisher<AVAudioSession.Event, Never> {
-        // TODO: Make name-spacing consistent.
-        
         // Subscribe for audio session notifications.
         notificationCenter
             .publisher(for: event.notificationName)

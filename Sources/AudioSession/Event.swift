@@ -14,7 +14,7 @@ extension AVAudioSession {
     enum Event {
         case interruption(type: AVAudioSession.InterruptionType, options: AVAudioSession.InterruptionOptions)
         case routeChange(reason: AVAudioSession.RouteChangeReason)
-        case mediaReset
+        case mediaServicesReset
     }
 }
 
@@ -28,8 +28,8 @@ extension AVAudioSession.Event {
             return .interruption
         case .routeChange(_):
             return .routeChange
-        case .mediaReset:
-            return  .mediaReset
+        case .mediaServicesReset:
+            return  .mediaServicesReset
         }
     }
 }
@@ -47,8 +47,8 @@ extension AVAudioSession.Event: Equatable {
                 return lhsReason == rhsReason
             }
             
-        case .mediaReset:
-            if case .mediaReset = rhs {
+        case .mediaServicesReset:
+            if case .mediaServicesReset = rhs {
                 return true
             }
         }
@@ -76,8 +76,8 @@ extension AVAudioSession.Event {
             guard let reason = info.routeChangeReason else { return nil }
             self = .routeChange(reason: reason)
         
-        case .mediaReset:
-            self = .mediaReset
+        case .mediaServicesReset:
+            self = .mediaServicesReset
         }
     }
 }

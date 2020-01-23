@@ -14,8 +14,7 @@ extension AVAudioSession.Event {
     enum Category {
         case interruption
         case routeChange
-        case mediaReset
-        // TODO: Consider renaming to mediaServicesReset.
+        case mediaServicesReset
     }
 }
 
@@ -26,7 +25,7 @@ extension AVAudioSession.Event.Category {
             return AVAudioSession.interruptionNotification
         case .routeChange:
             return AVAudioSession.routeChangeNotification
-        case .mediaReset:
+        case .mediaServicesReset:
             return AVAudioSession.mediaServicesWereResetNotification
         // TODO: Handle media services lost notification.
         }
@@ -38,8 +37,8 @@ extension AVAudioSession.Event.Category {
             self = .interruption
         case Self.routeChange.notificationName:
             self = .routeChange
-        case Self.mediaReset.notificationName:
-            self = .mediaReset
+        case Self.mediaServicesReset.notificationName:
+            self = .mediaServicesReset
         default:
             return nil
         }
@@ -53,7 +52,7 @@ extension AVAudioSession.Event.Category: CustomStringConvertible {
             return "Interruption"
         case .routeChange:
             return "Route change"
-        case .mediaReset:
+        case .mediaServicesReset:
             return "Media services reset"
         }
     }
