@@ -11,7 +11,7 @@ import AVFoundation
 // MARK: - Audio session event
 
 extension AVAudioSession {
-    enum Event {
+    public enum Event {
         case interruption(type: AVAudioSession.InterruptionType, options: AVAudioSession.InterruptionOptions)
         case routeChange(reason: AVAudioSession.RouteChangeReason)
         case mediaServicesReset
@@ -35,7 +35,7 @@ extension AVAudioSession.Event {
 }
 
 extension AVAudioSession.Event: Equatable {
-    static func == (lhs: AVAudioSession.Event, rhs: AVAudioSession.Event) -> Bool {
+    public static func == (lhs: AVAudioSession.Event, rhs: AVAudioSession.Event) -> Bool {
         switch lhs {
         case let .interruption(lhsType, lhsOptions):
             if case let .interruption(rhsType, rhsOptions) = rhs {

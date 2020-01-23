@@ -10,14 +10,14 @@ import Combine
 
 
 extension AVAudioSession {
-    typealias Publisher = AnyPublisher<AVAudioSession.Event, Never>
+    public typealias Publisher = AnyPublisher<AVAudioSession.Event, Never>
     // TODO: Handle failure.
     
-    var publisher: Publisher {
+    public var publisher: Publisher {
         publisher(notificationCenter: .default)
     }
     
-    func publisher(notificationCenter: NotificationCenter) -> Publisher {
+    public func publisher(notificationCenter: NotificationCenter) -> Publisher {
         publisher(for: .interruption, notificationCenter: notificationCenter)
         .merge(with:
             publisher(for: .routeChange, notificationCenter: notificationCenter),
