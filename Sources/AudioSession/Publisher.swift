@@ -29,11 +29,7 @@ extension AVAudioSession {
     private func publisher(for event: Event.Category, notificationCenter: NotificationCenter) -> AnyPublisher<AVAudioSession.Event, Never> {
         // Subscribe for audio session notifications.
         notificationCenter
-            .publisher(for: event.notificationName)
-            .filter {
-                // Make sure the notification matches this audio session.
-                $0.object as? AVAudioSession === self
-            }
+            .publisher(for: event.notificationName, object: self)
             .compactMap {
                 // Convert the notification into a type-safe event.
                 Event(notification: $0)
